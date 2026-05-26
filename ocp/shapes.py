@@ -1,19 +1,27 @@
 """Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification."""
 
+from abc import ABC, abstractmethod
 from math import pi
 
-class Shape:
-    def __init__(self, shape_type, **kwargs):
-        self.shape_type = shape_type
-        if self.shape_type == "rectangle":
-            self.width = kwargs["width"]
-            self.height = kwargs["height"]
-        elif self.shape_type == "circle":
-            self.radius = kwargs["radius"]
+
+class Shape(ABC):
+    @abstractmethod
+    def calculate_area(self):
+        pass
+
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
 
     def calculate_area(self):
-        if self.shape_type == "rectangle":
-            return self.width * self.height
-        elif self.shape_type == "circle":
-            return pi * self.radius**2
-        return None
+        return self.width * self.height
+
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def calculate_area(self):
+        return pi * self.radius**2
