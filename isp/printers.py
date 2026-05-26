@@ -1,30 +1,31 @@
 """Clients should not be forced to depend upon methods that they do not use. Interfaces belong to clients, not to hierarchies."""
 from abc import ABC, abstractmethod
 
-class Printer(ABC):
+
+class Printable(ABC):
     @abstractmethod
     def print(self, document):
         pass
 
+
+class Faxable(ABC):
     @abstractmethod
     def fax(self, document):
         pass
 
+
+class Scannable(ABC):
     @abstractmethod
     def scan(self, document):
         pass
 
-class OldPrinter(Printer):
+
+class OldPrinter(Printable):
     def print(self, document):
         print(f"Printing {document} in black and white...")
 
-    def fax(self, document):
-        raise NotImplementedError("Fax functionality not supported")
 
-    def scan(self, document):
-        raise NotImplementedError("Scan functionality not supported")
-
-class ModernPrinter(Printer):
+class ModernPrinter(Printable, Faxable, Scannable):
     def print(self, document):
         print(f"Printing {document} in color...")
 
